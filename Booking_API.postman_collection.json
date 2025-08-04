@@ -1,0 +1,465 @@
+{
+	"info": {
+		"_postman_id": "6e7e46ec-7beb-4083-80a7-0c2266b8411e",
+		"name": "Booking_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41783945"
+	},
+	"item": [
+		{
+			"name": "Positive",
+			"item": [
+				{
+					"name": "Create booking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"var jsondata = pm.response.json();\r",
+									"pm.environment.set(\"id\",jsondata.bookingid);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Show bookingid successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"bookingid\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show firstname successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"booking\"][\"firstname\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show lastname successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"booking\"][\"lastname\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show totalprice successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"booking\"][\"totalprice\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show depositpaid successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"booking\"][\"depositpaid\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show checkin successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"booking\"][\"bookingdates\"][\"checkin\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show checkout successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"booking\"][\"bookingdates\"][\"checkout\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show additionalneeds successfully\",function(){\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"booking\"][\"additionalneeds\"]).not.to.be.null;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"{{fname}}\",\r\n    \"lastname\": \"{{lname}}\",\r\n    \"totalprice\": 111,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2018-01-01\",\r\n        \"checkout\": \"2019-01-01\"\r\n    },\r\n    \"additionalneeds\": \"super bowls\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/booking/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"booking",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/booking/{{id}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"booking",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token Generator",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsondata = pm.response.json();\r",
+									"pm.environment.set(\"token\",jsondata.token);\r",
+									"\r",
+									"pm.test(\"Generate Token successfully with status code 200\",function(){\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Token number not to be null\",function(){\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"token\"]).not.to.be.null;\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/auth",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Booking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\",function(){\r",
+									"    pm.response.to.have.status(200)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "token = {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Asif\",\r\n    \"lastname\": \"Billah\",\r\n    \"totalprice\": 111,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2018-01-01\",\r\n        \"checkout\": \"2019-01-01\"\r\n    },\r\n    \"additionalneeds\": \"super bowls\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseurl}}/booking/{{id}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"booking",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Booking Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show bookingid successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"bookingid\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show firstname successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"firstname\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show lastname successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"lastname\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show totalprice successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"totalprice\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show depositpaid successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"depositpaid\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show checkin successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"bookingdates\"][\"checkin\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show checkout successfully\", function () {\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"bookingdates\"][\"checkout\"]).not.to.be.null;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Show additionalneeds successfully\",function(){\r",
+									"    var r = pm.response.json();\r",
+									"    pm.expect(r[\"additionalneeds\"]).not.to.be.null;\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/booking/{{id}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"booking",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Booking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\",function(){\r",
+									"    pm.response.to.have.status(201)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "token = {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/booking/{{id}}",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"booking",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative",
+			"item": [
+				{
+					"name": "Get Booking Details Invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Invalid Id is not found\",function(){\r",
+									" pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://restful-booker.herokuapp.com/booking/5678",
+							"protocol": "https",
+							"host": [
+								"restful-booker",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"booking",
+								"5678"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create booking  Invalid Character",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function(){\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"TowfiqBillah\",\r\n    \"lastname\": \"Talk\",\r\n    \"totalprice\": ten,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2018-01-01\",\r\n        \"checkout\": \"2019-01-01\"\r\n    },\r\n    \"additionalneeds\": \"super bowls\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://restful-booker.herokuapp.com/booking",
+							"protocol": "https",
+							"host": [
+								"restful-booker",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
