@@ -1,6 +1,6 @@
 # RESTful-booker-API-Testing
 # Features
-• Automated end-to-end testing of an E-commerce website using Playwright (JavaScript).
-• Implemented Page Object Model (POM) for scalable and maintainable test architecture.
-• Covered key flows: Login, Add to Cart, Cart Screenshot, Checkout Simulation, and Logout.
-• Integrated Allure Report for detailed and visually rich test reporting and analysis..
+1. Designed and executed API tests for Restful Booker, covering GET, POST, PUT, and DELETE requests.
+2. Automated request validation in Postman, utilizing environment variables for dynamic data handling.
+3. Ensured API reliability by validating responses and status codes, and generated a comprehensive summary report
+using Newman.
